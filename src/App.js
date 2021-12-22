@@ -4,7 +4,7 @@ import Header from './components/Header';
 import Main from './components/Main';
 import Footer from './components/Footer';
 import PopupWithForm from './components/PopupWithForm';
-import PopupWithImage from './components/PopupWithImage';
+import ImagePopup from './components/ImagePopup';
  
 
 function App() {
@@ -104,10 +104,10 @@ function App() {
       
     </PopupWithForm>
 
-    <PopupWithImage
+    <ImagePopup
       card={selectedCard}
       onClose={closeAllPopups}>
-    </PopupWithImage>
+    </ImagePopup>
     <Header />
   <Main onEditProfile ={handleEditProfileClick} onAddPlace={handleEditPlaceClick} onEditAvatar={handleEditAvatarClick} handleClick={handleCardClick}/>
     <Footer />
