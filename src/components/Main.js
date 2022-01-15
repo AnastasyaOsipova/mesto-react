@@ -1,48 +1,15 @@
 import React from "react";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import api from "../utils.js/Api";
 import Card from "./Card";
 
 function Main(props) {
-  const [userName, setUserName] = React.useState(null);
-  const [userDescription, setUserDescription] = React.useState(null);
-  const [userAvatar, setUserAvatar] = React.useState(null);
 
-  const [cards, setCards] = React.useState([]);
-
-  React.useEffect(() => {
-    api
-      .getUserInfoApi()
-      .then((data) => {
-        setUserName(data.name);
-        setUserDescription(data.about);
-        setUserAvatar(data.avatar);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  React.useEffect(() => {
-    api
-      .getInitialCards()
-      .then((data) => {
-        const cards = data.map((item) => {
-          return {
-            id: item._id,
-            image: item.link,
-            title: item.name,
-            alt: item.name,
-            likes: item.likes.length,
-          };
-        });
-
-        setCards(cards);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
+    
+  const currentUser = React.useContext(CurrentUserContext);
+ 
+   
+  
   return (
     <main className="main">
       <section className="profile">
@@ -51,11 +18,11 @@ function Main(props) {
             onClick={props.onEditAvatar}
             className="profile__avatar-edit-icon"
           >
-            <img src={userAvatar} alt="Фото" className="profile__avatar" />
+           <img src={currentUser.avatar} alt="Фото" className="profile__avatar" />
           </div>
           <div className="profile__text">
-            <h1 className="profile__name">{userName}</h1>
-            <p className="profile__description">{userDescription}</p>
+            <h1 className="profile__name">{currentUser.name}</h1>
+            <p className="profile__description">{currentUser.about}</p>
           </div>
           <button
             onClick={props.onEditProfile}
@@ -70,14 +37,18 @@ function Main(props) {
         ></button>
       </section>
       <section className="photo-grid">
-        {cards.map((item) => (
+        {props.cards.map((item) => (
           <Card
             key={item.id}
             src={item.image}
             title={item.title}
             alt={item.alt}
             likes={item.likes}
+            like={item.like}
+            owner={item.owner}
             onCardClick={props.handleClick}
+            onCardLike={props.handleCardLike}
+            id={item.id}
           />
         ))}
       </section>

@@ -44,16 +44,24 @@ class Api{
         .then(this._checkResponce);
           };
         
-    
+    changeLikeCardStatus(id, isLiked){
+        if (isLiked){
+          return api.deleteCardLike(id)
+        }
+        else{
+           return api.setCardLike(id)
+        }
+    }
 
-    setCardLike(cardId){return fetch(`${this._url}cards/likes/${cardId}`, {
+    
+    setCardLike(id){return fetch(`${this._url}cards/likes/${id}`, {
         method: "PUT",
         headers: this._headers,
     })
     .then(this._checkResponce);
           };
 
-    deleteCardLike(cardId){return fetch(`${this._url}cards/likes/${cardId}`, {
+    deleteCardLike(id){return fetch(`${this._url}cards/likes/${id}`, {
         method: "DELETE",
         headers: this._headers,
     })
