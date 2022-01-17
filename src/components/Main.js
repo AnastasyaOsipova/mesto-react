@@ -4,12 +4,8 @@ import api from "../utils.js/Api";
 import Card from "./Card";
 
 function Main(props) {
-
-    
   const currentUser = React.useContext(CurrentUserContext);
- 
-   
-  
+
   return (
     <main className="main">
       <section className="profile">
@@ -18,7 +14,11 @@ function Main(props) {
             onClick={props.onEditAvatar}
             className="profile__avatar-edit-icon"
           >
-           <img src={currentUser.avatar} alt="Фото" className="profile__avatar" />
+            <img
+              src={currentUser.avatar}
+              alt="Фото"
+              className="profile__avatar"
+            />
           </div>
           <div className="profile__text">
             <h1 className="profile__name">{currentUser.name}</h1>
@@ -39,16 +39,12 @@ function Main(props) {
       <section className="photo-grid">
         {props.cards.map((item) => (
           <Card
-            key={item.id}
-            src={item.image}
-            title={item.title}
-            alt={item.alt}
-            likes={item.likes}
-            like={item.like}
-            owner={item.owner}
+            card={item}
+            key={item._id}
+            owner={item.owner._id}
             onCardClick={props.handleClick}
             onCardLike={props.handleCardLike}
-            id={item.id}
+            onCardDelete={props.handleCardDelete}
           />
         ))}
       </section>
