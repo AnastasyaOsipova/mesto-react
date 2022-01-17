@@ -3,7 +3,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Card(props) {
   function handleClick() {
-    props.onCardClick(props.card.link, props.card.name);
+    props.onCardClick(props.card.name, props.card.link);
   }
 
   const currentUser = React.useContext(CurrentUserContext);

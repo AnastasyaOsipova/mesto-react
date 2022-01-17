@@ -90,7 +90,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditProfilePopupOpen(false);
-    setSelectedCard({ title: "", src: "" });
+    setSelectedCard({ name: "", link: "" });
   }
 
   React.useEffect(() => {
