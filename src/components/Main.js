@@ -42,8 +42,6 @@ function Main(props) {
             card={item}
             key={item._id}
             owner={item.owner._id}
-            name={item.name}
-            link={item.link}
             onCardClick={props.handleClick}
             onCardLike={props.handleCardLike}
             onCardDelete={props.handleCardDelete}

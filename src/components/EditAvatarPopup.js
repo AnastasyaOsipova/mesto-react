@@ -32,9 +32,6 @@ export default function EditAvatarPopup(props) {
         />
         <span className="popup__input-error avatar-input-error"></span>
       </div>
-      <button type="submit" className="popup__add-button button">
-        Сохранить
-      </button>
     </PopupWithForm>
   );
 }

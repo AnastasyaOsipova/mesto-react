@@ -66,9 +66,6 @@ export default function EditProfilePopup(props) {
         />
         <span className="popup__input-error description-input-error"></span>
       </div>
-      <button type="submit" className="popup__add-button button">
-        Сохранить
-      </button>
     </PopupWithForm>
   );
 }

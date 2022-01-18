@@ -1,5 +1,4 @@
 import React from "react";
-import "../index.css";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -23,13 +22,13 @@ function App() {
     link: "",
   });
 
-  const [currentUser, setCurrentUser] = React.useState([]);
+  const [currentUser, setCurrentUser] = React.useState({});
 
   React.useEffect(() => {
-    api
-      .getUserInfoApi()
-      .then((data) => {
-        setCurrentUser(data);
+    Promise.all([api.getUserInfoApi(), api.getInitialCards()])
+      .then(([userData, cardData]) => {
+        setCurrentUser(userData);
+        setCards(cardData);
       })
       .catch((err) => {
         console.log(err);
@@ -38,40 +37,28 @@ function App() {
 
   const [cards, setCards] = React.useState([]);
 
-  React.useEffect(() => {
-    api
-      .getInitialCards()
-      .then((data) => {
-        const cards = data.map((item) => {
-          return {
-            _id: item._id,
-            link: item.link,
-            name: item.name,
-            likes: item.likes,
-            card: item,
-            owner: item.owner,
-          };
-        });
+  function handleCardLike(likes, _id) {
+    const isLiked = likes.some((i) => i._id === currentUser._id);
 
-        setCards(cards);
+    api
+      .changeLikeCardStatus(_id, isLiked)
+      .then((newCard) => {
+        setCards((state) => state.map((c) => (c._id === _id ? newCard : c)));
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
-
-  function handleCardLike(likes, _id) {
-    const isLiked = likes.some((i) => i._id === currentUser._id);
-
-    api.changeLikeCardStatus(_id, isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === _id ? newCard : c)));
-    });
   }
 
   function handleCardDelete(_id) {
-    api.deleteCard(_id).then(() => {
-      setCards((state) => state.filter((c) => c._id !== _id));
-    });
+    api
+      .deleteCard(_id)
+      .then(() => {
+        setCards((state) => state.filter((c) => c._id !== _id));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleEditAvatarClick() {

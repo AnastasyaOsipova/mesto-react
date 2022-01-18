@@ -35,6 +35,7 @@ export default function AddPlacePopup(props) {
           required
           type="text"
           name="name"
+          value={null}
           onChange={handleNameChange}
           placeholder="Название"
           id="place-input"
@@ -49,6 +50,7 @@ export default function AddPlacePopup(props) {
           required
           type="url"
           name="link"
+          value={null}
           onChange={handleLinkChange}
           placeholder="Ссылка на картинку"
           id="image-input"
@@ -56,9 +58,6 @@ export default function AddPlacePopup(props) {
         />
         <span className="popup__input-error image-input-error"></span>
       </div>
-      <button type="submit" className="popup__add-button button">
-        Создать
-      </button>
     </PopupWithForm>
   );
 }
